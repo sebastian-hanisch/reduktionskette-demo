@@ -68,7 +68,7 @@ def test_claim_effort_of_the_solvers_against_dpll_and_random_graphs(effort):
 
 
 def test_claim_the_reduction_keeps_the_answer_but_not_the_ease(effort):
-    """README: DPLL braucht auf allen fünf Größen höchstens 5 Knoten, die Überdeckungssuche auf G_F bei m = 30 in 5 von 5 Fällen das ganze Budget; kein einheitliches Bild gegen Zufallsgraphen."""
+    """README: DPLL braucht auf allen fünf Größen im Median höchstens 5 Knoten (Einzelfälle mehr), die Überdeckungssuche auf G_F bei m = 30 in 5 von 5 Fällen das ganze Budget; kein einheitliches Bild gegen Zufallsgraphen."""
     rows = effort
     assert max(r["dpll"] for r in rows) == 5
     assert rows[-1]["cover_aborted"] == 5 and rows[-1]["rand_cover_aborted"] == 5

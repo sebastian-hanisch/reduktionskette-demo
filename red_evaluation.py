@@ -321,7 +321,7 @@ def verdict_yes(rows: list[dict]) -> tuple[str, str]:
             "Finden kann exponentiell wachsen (Rundreise).")
     easy = [r for r in rows if r["search"] < r["verify"]]
     if easy:
-        text += f" Bei dieser Zufallsformel ist das Finden ({easy[0]['problem']}) dagegen sogar billiger als das Prüfen: NP-vollständig heißt nicht, dass jede Instanz schwer ist."
+        text += f" Bei dieser Zufallsformel liegt das Finden ({easy[0]['problem']}) dagegen in der Größenordnung des Prüfens oder darunter (verschiedene Einheiten): NP-vollständig heißt nicht, dass jede Instanz schwer ist."
     return "info", text
 
 
@@ -335,6 +335,6 @@ def verdict_refutation(random_rows: list[dict], pigeon_rows: list[dict]) -> tupl
     """Nein-Beleg bei 3-SAT: kein kurzer Beleg bekannt; gemessen wird der DPLL-Baum als eine Art Beleg."""
     big = [r for r in random_rows if r["median"] is not None][-1]
     p0, p1 = pigeon_rows[0], pigeon_rows[-1]
-    return "info", (f"Zufällige unerfüllbare Formeln (m/n = {fmt_num(C.CERT_RATIO)}) haben bis n = {big['n']} kleine Widerlegungsbäume (Median {fmt_int(round(big['median']))} Knoten). "
+    return "info", (f"Zufällige unerfüllbare Formeln (m/n = {fmt_num(C.CERT_RATIO)}) haben bis n = {big['n']} kleine Widerlegungsbäume (Median {fmt_int(round(big['median']))} Knoten, über nur {big['unsat']} unerfüllbare Formeln). "
                     f"Die Schubfach-Formeln wachsen dagegen schnell: {fmt_int(p0['nodes'])} Knoten bei {p0['h']} Fächern, {fmt_int(p1['nodes'])} bei {p1['h']}. "
                     "Ein kurzer Nein-Beleg für 3-SAT ist nicht bekannt; ob es immer einen gibt (NP = coNP), ist offen.")

@@ -71,7 +71,7 @@ def test_yes_verdict_with_and_without_an_easy_search():
     assert kind == "info" and "12 Zugriffe zum Prüfen, 56.342 Zugriffe (Held–Karp) zum Finden" in text and "sogar billiger" not in text
     easy = hard + [{"problem": "3-SAT: Belegung", "verify": 16, "verify_unit": "gelesene Literale", "search": 6, "search_unit": "DPLL-Knoten"}]
     text = ev.verdict_yes(easy)[1]
-    assert "Bei dieser Zufallsformel ist das Finden (3-SAT: Belegung) dagegen sogar billiger als das Prüfen" in text
+    assert "Bei dieser Zufallsformel liegt das Finden (3-SAT: Belegung) dagegen in der Größenordnung des Prüfens oder darunter (verschiedene Einheiten)" in text
     equal = [{"problem": "x", "verify": 5, "verify_unit": "u", "search": 5, "search_unit": "u"}]
     assert "sogar billiger" not in ev.verdict_yes(equal)[1]
 
@@ -82,8 +82,8 @@ def test_bipartite_verdict_names_counts():
 
 
 def test_refutation_verdict_uses_the_largest_size_with_unsat_formulas():
-    random_rows = [{"n": 10, "median": 7.0, "max": 13}, {"n": 40, "median": 57.0, "max": 65}, {"n": 45, "median": None, "max": None}]
+    random_rows = [{"n": 10, "median": 7.0, "max": 13, "unsat": 3}, {"n": 40, "median": 57.0, "max": 65, "unsat": 2}, {"n": 45, "median": None, "max": None, "unsat": 0}]
     pigeon = [{"h": 2, "nodes": 3}, {"h": 7, "nodes": 10079}]
     kind, text = ev.verdict_refutation(random_rows, pigeon)
     assert kind == "info" and f"(m/n = {ev.fmt_num(C.CERT_RATIO)})" in text
-    assert "bis n = 40" in text and "Median 57 Knoten" in text and "3 Knoten bei 2 Fächern, 10.079 bei 7" in text and "NP = coNP" in text
+    assert "bis n = 40" in text and "Median 57 Knoten, über nur 2 unerfüllbare Formeln" in text and "3 Knoten bei 2 Fächern, 10.079 bei 7" in text and "NP = coNP" in text
