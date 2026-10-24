@@ -113,7 +113,7 @@ def test_sweep_size_matches_a_direct_recomputation():
     edges = sorted(R.edge_count(R.build_graph(random_formula(8, 12, s))) for s in (1, 2, 3))
     assert rows[1]["edges"] == edges[1]                                      # Median von drei
     assert rows[1]["conflicts"] == rows[1]["edges"] - 36
-    assert rows[1]["complement"] == 36 * 35 // 2 - rows[1]["edges"] or True
+    assert rows[1]["complement"] == 36 * 35 // 2 - rows[1]["edges"]
 
 
 def test_sweep_size_grows_with_m():
